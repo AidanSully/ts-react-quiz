@@ -14,9 +14,8 @@ export type AnswerObject = {
   correctAnswer: string;
 };
 
-const TOTAL_QUESTIONS = 10;
-
 const App = () => {
+  const [amount, setAmount] = useState(0);
   const [loading, setLoading] = useState(false);
   const [questions, setQuestions] = useState<QuestionState[]>([]);
   const [number, setNumber] = useState(0);
@@ -24,14 +23,16 @@ const App = () => {
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(true);
 
-  const startTrivia = async () => {
-    setLoading(true);
+  const startTrivia = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+		if (e.key !== "Enter") {
+      return;
+		}
+		const value = parseInt(e.currentTarget.value);
+		setAmount(value);
+		setLoading(true);
     setGameOver(false);
 
-    const newQuestions = await fetchQuizQuestions(
-      TOTAL_QUESTIONS,
-      Difficulty.EASY
-    );
+    const newQuestions = await fetchQuizQuestions(value, Difficulty.EASY);
 
     setQuestions(newQuestions);
     setScore(0);
@@ -63,7 +64,7 @@ const App = () => {
     // Move on to the next question if not last question
     const nextQuestion = number + 1;
 
-    if (nextQuestion === TOTAL_QUESTIONS) {
+    if (nextQuestion === amount) {
       setGameOver(true);
     } else {
       setNumber(nextQuestion);
@@ -75,17 +76,25 @@ const App = () => {
       <GlobalStyle />
       <Wrapper>
         <h1>REACT QUIZ</h1>
-        {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
-          <button className="start" onClick={startTrivia}>
-            Start
-          </button>
+        {gameOver || userAnswers.length === amount ? (
+          <div>
+            <input
+              className="start"
+              type="text"
+              placeholder="Amount of questions"
+              onKeyPress={startTrivia}
+            />
+            {/* <button className="start" onClick={startTrivia}>
+              Start
+            </button> */}
+          </div>
         ) : null}
         {!gameOver ? <p className="score">Score: {score}</p> : null}
         {loading && <p>Loading Questions...</p>}
         {!loading && !gameOver && (
           <QuestionCard
             questionNr={number + 1}
-            totalQuestions={TOTAL_QUESTIONS}
+            totalQuestions={amount}
             question={questions[number].question}
             answers={questions[number].answers}
             userAnswer={userAnswers ? userAnswers[number] : undefined}
@@ -95,7 +104,7 @@ const App = () => {
         {!gameOver &&
         !loading &&
         userAnswers.length === number + 1 &&
-        number !== TOTAL_QUESTIONS - 1 ? (
+        number !== amount - 1 ? (
           <button className="next" onClick={nextQuestion}>
             Next Question
           </button>

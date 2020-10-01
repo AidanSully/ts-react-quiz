@@ -54,7 +54,8 @@ export const Wrapper = styled.div`
   }
 
   .start,
-  .next {
+  .next,
+  input {
     cursor: pointer;
     background: linear-gradient(180deg, #fff, #ffcc91);
     border: 2px solid #d38558;
@@ -65,7 +66,9 @@ export const Wrapper = styled.div`
     padding: 0 40px;
   }
 
-  .start {
+  .start,
+  input {
     max-width: 200px;
+    text-align: center;
   }
 `;
