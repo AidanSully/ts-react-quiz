@@ -75,7 +75,7 @@ const App = () => {
     <>
       <GlobalStyle />
       <Wrapper>
-        <h1>REACT QUIZ</h1>
+        <h1>VIDEO GAME QUIZ</h1>
         {gameOver || userAnswers.length === amount ? (
           <div>
             <input

@@ -1,5 +1,5 @@
 import styled, { createGlobalStyle } from "styled-components";
-import BGImage from "./images/background.jpg";
+import BGImage from "./images/bg.jpg";
 
 export const GlobalStyle = createGlobalStyle`
 	html {
@@ -64,6 +64,7 @@ export const Wrapper = styled.div`
     height: 40px;
     margin: 20px 0;
     padding: 0 40px;
+    outline: none;
   }
 
   .start,
