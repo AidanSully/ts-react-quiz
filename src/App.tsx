@@ -24,12 +24,12 @@ const App = () => {
   const [gameOver, setGameOver] = useState(true);
 
   const startTrivia = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-		if (e.key !== "Enter") {
+    if (e.key !== "Enter") {
       return;
-		}
-		const value = parseInt(e.currentTarget.value);
-		setAmount(value);
-		setLoading(true);
+    }
+    const value = parseInt(e.currentTarget.value);
+    setAmount(value);
+    setLoading(true);
     setGameOver(false);
 
     const newQuestions = await fetchQuizQuestions(value, Difficulty.EASY);
@@ -75,7 +75,7 @@ const App = () => {
     <>
       <GlobalStyle />
       <Wrapper>
-        <h1>VIDEO GAME QUIZ</h1>
+        {gameOver || userAnswers.length === amount ? <h1>GAME QUIZ</h1> : null}
         {gameOver || userAnswers.length === amount ? (
           <div>
             <input
