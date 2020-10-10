@@ -81,7 +81,7 @@ const App = () => {
             <input
               className="start"
               type="text"
-              placeholder="Amount of questions"
+              placeholder="Question amount"
               onKeyPress={startTrivia}
             />
             {/* <button className="start" onClick={startTrivia}>
